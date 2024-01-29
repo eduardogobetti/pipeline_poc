@@ -47,6 +47,7 @@ jobs:
   DeployProd:
     name: Deploy to Production 
     runs-on: ubuntu-latest
+    needs: [Build]
     if: |
       github.event_name == 'pull_request' &&
       github.event.action == 'closed' &&

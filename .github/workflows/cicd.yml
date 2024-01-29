@@ -9,7 +9,8 @@ on:
     branches: [ main ]
     types:
       - opened
-      - synchronize    
+      - synchronize
+      - closed  
   workflow_dispatch:
 
 jobs:
@@ -34,7 +35,7 @@ jobs:
     
   DeployStaging:
     name: Deploy to Staging 
-    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize')
     needs: [Build]
     runs-on: ubuntu-latest
     environment: 

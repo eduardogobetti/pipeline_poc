@@ -15,7 +15,7 @@ on:
 
 jobs:
   reusable:
-    uses: eduardogobetti/reusable_workflow/.github/workflows/say_hello.yml
+    uses: eduardogobetti/reusable_workflow/.github/workflows/say_hello.yml@main
     with:
       nome: Ernesto
   # Build:

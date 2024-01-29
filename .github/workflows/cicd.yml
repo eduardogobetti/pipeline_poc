@@ -42,10 +42,19 @@ jobs:
       - name: Deploy
         run: echo I am deploying to Staging!
 
+  DeployProdTrigger:
+    name: Trigger DeployProd
+    runs-on: ubuntu-latest
+    needs: [DeployStaging]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Trigger DeployProd
+        run: echo "DeployProd Triggered"
+
   DeployProd:
     name: Deploy to Production 
     runs-on: ubuntu-latest
-    needs: [DeployStaging]
+    needs: [DeployProdTrigger]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.pull_request.merged == true
     environment: 
       name: Production

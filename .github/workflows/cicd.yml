@@ -41,14 +41,12 @@ jobs:
     steps:
       - name: Deploy
         run: echo I am deploying to Staging!
-      - name: Set Staging Deployment Status
-        run: echo "STAGING_DEPLOYED=true" >> $GITHUB_ENV
 
   DeployProd:
     name: Deploy to Production 
     runs-on: ubuntu-latest
     needs: [DeployStaging]
-    if: env.STAGING_DEPLOYED == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && success()
     environment: 
       name: Production
       url: 'http://www.myapp.com'

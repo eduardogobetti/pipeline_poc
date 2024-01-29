@@ -48,7 +48,10 @@ jobs:
   DeployProd:
     name: Deploy to Production 
     needs: [DeployStaging]
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    if: >
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' &&
+      github.actor == 'github-actions[bot]'
     runs-on: ubuntu-latest
     environment: 
       name: Production

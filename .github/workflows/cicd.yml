@@ -1,45 +1,55 @@
-name: CI/CD Pipeline
+name: CI + CD
 
 on:
   push:
     branches:
-      - 'feature/*'
+      - main
+      - 'feature/**'
   pull_request:
-    branches:
-      - '*'
+    branches: [ main ]
+    types:
+      - opened
+      - synchronize
+      - closed
+  workflow_dispatch:
 
 jobs:
-  build:
-    name: Build
+  Build:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Compile
+        run: echo Hello, world!
+
+  DeployDev:
+    name: Deploy to Dev 
+    runs-on: ubuntu-latest
+    needs: [Build]
     if: startsWith(github.ref, 'refs/heads/feature/')
     steps:
-      - name: Build Step
-        run: echo "Building..."
+      - name: Deploy
+        run: echo I am deploying to Dev!
 
-  deployDevelop:
-    name: Deploy to Develop
+  DeployStaging:
+    name: Deploy to Staging 
     runs-on: ubuntu-latest
-    needs: [build]
-    if: startsWith(github.ref, 'refs/heads/feature/')
+    needs: [Build]
+    if: (github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize')) || github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.pull_request.merged == true
+    environment: 
+      name: Staging
+      url: 'http://test.myapp.com'
     steps:
-      - name: Deploy to Develop Step
-        run: echo "Deploying to Develop..."
+      - name: Deploy
+        run: echo I am deploying to Staging!
 
-  deployStage:
-    name: Deploy to Stage
+  DeployProd:
+    name: Deploy to Production 
     runs-on: ubuntu-latest
-    needs: [build]
-    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    needs: [Build]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.pull_request.merged == true
+    environment: 
+      name: Production
+      url: 'http://www.myapp.com'
     steps:
-      - name: Deploy to Stage Step
-        run: echo "Deploying to Stage..."
-
-  deployProduction:
-    name: Deploy to Production
-    runs-on: ubuntu-latest
-    needs: [build]
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
-    steps:
-      - name: Deploy to Production Step
-        run: echo "Deploying to Production..."
+      - name: Deploy
+        run: echo I am deploying to Production!

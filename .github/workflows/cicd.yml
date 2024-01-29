@@ -45,7 +45,7 @@ jobs:
   DeployProd:
     name: Deploy to Production 
     runs-on: ubuntu-latest
-    needs: [DeployStaging, Build]
+    needs: [Build]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.pull_request.merged == true
     environment: 
       name: Production

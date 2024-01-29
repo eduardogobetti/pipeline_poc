@@ -11,7 +11,10 @@ on:
       - opened
       - synchronize
       - closed
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["CI + CD"]
+    types:
+      - completed
 
 jobs:
   Build:
@@ -47,10 +50,11 @@ jobs:
   DeployProd:
     name: Deploy to Production 
     runs-on: ubuntu-latest
-    needs: [Build]
-    if: |
-      github.event_name == 'push' &&
-      github.event.pull_request.merged == true
+    needs: [DeployStaging]
+    if: >
+      github.event_name == 'workflow_run' &&
+      github.event.workflow == 'CI + CD' &&
+      github.event.conclusion == 'success'
     environment: 
       name: Production
       url: 'http://www.myapp.com'

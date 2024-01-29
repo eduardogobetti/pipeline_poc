@@ -36,7 +36,8 @@ jobs:
     needs: [Build]
     if: |
       github.event_name == 'pull_request' &&
-      (github.event.action == 'opened' || github.event.action == 'synchronize')
+      (github.event.action == 'opened' || github.event.action == 'synchronize') ||
+      (github.event.action == 'closed' && github.event.pull_request.merged == true)
     environment: 
       name: Staging
       url: 'http://test.myapp.com'

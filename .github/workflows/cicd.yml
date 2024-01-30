@@ -48,7 +48,7 @@ jobs:
       url: 'http://eu_int.com'
     steps:
       - name: Deploy
-        run: echo I am deploying to Staging!
+        run: echo I am deploying to eu_int!
 
   DeployEuE2e:
     name: Deploy to eu-central-1/e2e 
@@ -59,11 +59,11 @@ jobs:
       github.event.pull_request.merged == true &&
       github.ref == 'refs/heads/main'
     environment: 
-      name: Production
+      name: eu_e2e
       url: 'http://eu_e2e.com'
     steps:
       - name: Deploy
-        run: echo I  am deploying to Production!
+        run: echo I  am deploying to eu_e2e!
 
   DeployUsE2e:
     name: Deploy to us-east-1/e2e 
@@ -74,8 +74,8 @@ jobs:
       github.event.pull_request.merged == true &&
       github.ref == 'refs/heads/main'
     environment: 
-      name: Production
+      name: us_e2e
       url: 'http://us_e2e.com'
     steps:
       - name: Deploy
-        run: echo I  am deploying to Production!
+        run: echo I  am deploying to us_e2e!

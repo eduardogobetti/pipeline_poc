@@ -2,32 +2,84 @@ name: Main Tag
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
     types:
       - opened
       - synchronize
       - closed
   workflow_dispatch:
+
 jobs:
-  TagEuDev: 
+  TagEuDev:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' && 
             github.event.action == 'closed' && 
             github.event.pull_request.merged == true && 
             github.event.pull_request.base.ref == 'main' }}
     permissions:
-      contents: write            
+      contents: write
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
         with:
           fetch-depth: '0'
 
       - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.64.0 #  Don't use @master or @v1 unless you're happy to test the latest version
+        id: bump_version
+        uses: anothrNick/github-tag-action@1.64.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: false
+
+      - name: Set Tag as Output
+        run: echo "TAG_VERSION=${{ steps.bump_version.outputs.TAG }}"
+        id: set_tag_version
+
+  AutomaticReleases:
+    runs-on: ubuntu-latest
+    needs: TagEuDev
+    steps:
+      - name: Use Tag Version
+        run: |
+          echo "Using Tag Version: ${{ needs.TagEuDev.outputs.TAG_VERSION }}"
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "${{ needs.TagEuDev.outputs.TAG_VERSION }}"
+
+
+# name: Main Tag
+
+# on:
+#   pull_request:
+#     branches: [ main ]
+#     types:
+#       - opened
+#       - synchronize
+#       - closed
+#   workflow_dispatch:
+# jobs:
+#   TagEuDev: 
+#     runs-on: ubuntu-latest
+#     if: ${{ github.event_name == 'pull_request' && 
+#             github.event.action == 'closed' && 
+#             github.event.pull_request.merged == true && 
+#             github.event.pull_request.base.ref == 'main' }}
+#     permissions:
+#       contents: write            
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           fetch-depth: '0'
+
+#       - name: Bump version and push tag
+#         uses: anothrNick/github-tag-action@1.64.0 #  Don't use @master or @v1 unless you're happy to test the latest version
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
+#           WITH_V: false
+
+#       - uses: "marvinpinto/action-automatic-releases@latest"
+#         with:
+#           repo_token: "${{ secrets.GITHUB_TOKEN }}"
+#           automatic_release_tag: "latest"

@@ -30,8 +30,7 @@ jobs:
 
       - name: Use Git Tag in Another Step
         run: echo "Using Git Tag: ${{ env.GIT_TAG }}"
-        env:
-          GIT_TAG: ${{ env.GIT_TAG }}
+
 
       - name: Get Latest Tag
         id: latest_tag

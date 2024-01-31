@@ -34,7 +34,7 @@ jobs:
           git fetch --tags
           latest_tag=$(git describe --tags --abbrev=0)
           echo "Latest tag: $latest_tag"
-          echo "::set-output name=TAG_VERSION::$latest_tag"
+          echo "LATEST_TAG=$latest_tag" >> $GITHUB_ENV
 
       - name: Generate New Tag
         id: generate_tag

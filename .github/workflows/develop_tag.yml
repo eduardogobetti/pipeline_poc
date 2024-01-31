@@ -20,6 +20,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set Git Identity
+        run: |
+          git config user.email "eduardo.gobetti@gmail.com"
+          git config user.name "Eduardo Gobetti"
+
       - name: Get Latest Tag
         id: latest_tag
         run: echo ::set-output name=TAG_VERSION::$(git describe --tags --abbrev=0)

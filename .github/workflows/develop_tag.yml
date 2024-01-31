@@ -9,7 +9,7 @@ on:
       - closed
   workflow_dispatch:
 jobs:
-  # criar a tag na develop se o a pr for concluida
+  # criar a tag na develop se o a pr for concluida 
   TagEuDev: 
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' && 

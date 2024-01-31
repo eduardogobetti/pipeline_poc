@@ -28,6 +28,10 @@ jobs:
       - name: Teste Edu
         run: echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
 
+      - name: Use Git Tag in Another Step
+        run: echo "Using Git Tag: $GIT_TAG"
+
+
       - name: Get Latest Tag
         id: latest_tag
         run: |

@@ -15,10 +15,13 @@ nvestigation Points:
 | [   ] | Check truststore validation process           | Verifique o processo de validação do truststore       |
 | [   ] | Check vulnerability check                     | Verifique a verificação de vulnerabilidade            |
       
-      
+
 ## Enviroments
 * eu_dev
 * eu_int
 * eu_e2e
 * us_e2e
 
+## Documentação
+[Doc tag-bump](https://github.com/marketplace/actions/github-tag-bump)
+[Doc Release](https://github.com/marketplace/actions/automatic-releases)

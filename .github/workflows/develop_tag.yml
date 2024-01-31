@@ -1,0 +1,29 @@
+name: Develop Tag
+
+on:
+  pull_request:
+    branches: [ develop ]
+    types:
+      - opened
+      - synchronize
+      - closed
+  workflow_dispatch:
+jobs:
+  # criar a tag na develop se o a pr for concluida
+  TagEuDev: 
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' && 
+            github.event.action == 'closed' && 
+            github.event.pull_request.merged == true && 
+            github.event.pull_request.base.ref == 'develop' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create Tag
+        run: |
+          echo "Enter the version for the tag:"
+          read version
+          echo "Creating tag v${version}"
+          git tag -a "v${version}" -m "Tagging version ${version}"
+          git push origin "v${version}"

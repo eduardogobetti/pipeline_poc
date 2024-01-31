@@ -30,12 +30,12 @@ jobs:
   DeployEuDev:
     name: Deploy to eu-central-1/test
     runs-on: ubuntu-latest
-    if: |
-      (startsWith(github.ref, 'refs/heads/feature/') && github.event_name == 'push') ||
-      (github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize'))
+    if: >
+      github.event_name == 'pull_request' &&
+      (github.event.action == 'opened' || github.event.action == 'synchronize')
     steps:
       - name: Deploy
-        run: echo I am deploying to Dev!        
+        run: echo I am deploying to Dev!     
 
   # DeployEuDev:
   #   name: Deploy to eu-central-1/test

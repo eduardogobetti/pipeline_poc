@@ -25,6 +25,9 @@ jobs:
           git config user.email "eduardo.gobetti@gmail.com"
           git config user.name "Eduardo Gobetti"
 
+      - name: Teste Edu
+        run: echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
+
       - name: Get Latest Tag
         id: latest_tag
         run: |

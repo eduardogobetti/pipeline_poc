@@ -22,6 +22,8 @@ jobs:
   CodeAnalysis:
     name: Code Analysis
     runs-on: ubuntu-latest
+    if: |
+      github.event_name != 'pull_request'
     steps:
       - uses: actions/checkout@v4
       - name: code analysis
@@ -30,6 +32,7 @@ jobs:
   DeployEuDev:
     name: Deploy to eu-central-1/test
     runs-on: ubuntu-latest
+    needs: [CodeAnalysis]
     if: >
       github.event_name == 'pull_request' &&
       (github.event.action == 'opened' || github.event.action == 'synchronize')

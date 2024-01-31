@@ -16,17 +16,6 @@ nvestigation Points:
 | [   ] | Check vulnerability check                     | Verifique a verificação de vulnerabilidade            |
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-
-      
-      
 ## Enviroments
 * eu_dev
 * eu_int

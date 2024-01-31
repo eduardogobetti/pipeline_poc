@@ -15,18 +15,6 @@ nvestigation Points:
 | [   ] | Check truststore validation process           | Verifique o processo de validação do truststore       |
 | [   ] | Check vulnerability check                     | Verifique a verificação de vulnerabilidade            |
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-
-      
-      
 ## Enviroments
 * eu_dev
 * eu_int

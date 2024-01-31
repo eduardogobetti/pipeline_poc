@@ -1,0 +1,56 @@
+name: Main Tag
+
+on:
+  pull_request:
+    branches: [ main ]
+    types:
+      - opened
+      - synchronize
+      - closed
+  workflow_dispatch:
+jobs:
+  # criar a tag na develop se o a pr for concluida
+  TagEuDev: 
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' && 
+            github.event.action == 'closed' && 
+            github.event.pull_request.merged == true && 
+            github.event.pull_request.base.ref == 'main' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set Git Identity
+        run: |
+          git config user.email "eduardo.gobetti@gmail.com"
+          git config user.name "Eduardo Gobetti"
+
+      - name: Pull latest changes
+        run: git pull
+
+      - name: Get Latest Tag
+        id: latest_tag
+        run: |
+          git fetch --tags
+          latest_tag=$(git describe --tags --abbrev=0)
+          echo "Latest tag: $latest_tag"        
+
+      # - name: Create Release
+      #   uses: actions/create-release@v1.1.4
+      #   with:
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     files: ''
+      #     tag_name: 1.0.0
+      #     name: Release 1.0.0
+      #     body: Release notes for 1.0.0
+
+      # - name: Create Release
+      #   id: create_release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ github.event.before }}
+      #     release_name: ${{ github.event.before }}
+      #     draft: false
+      #     prerelease: false          

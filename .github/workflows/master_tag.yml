@@ -13,8 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' && 
             github.event.action == 'closed' && 
-            github.event.pull_request.merged == true && 
-            github.event.pull_request.base.ref == 'master' }}
+            github.event.pull_request.merged == true }}
     permissions:
       contents: write            
     steps:

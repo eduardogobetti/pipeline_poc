@@ -14,10 +14,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  reusable:
-    uses: eduardogobetti/reusable_workflow/.github/workflows/say_hello.yml@main
-    with:
-      nome: Ernesto
+  # reusable:
+  #   uses: eduardogobetti/reusable_workflow/.github/workflows/say_hello.yml@main
+  #   with:
+  #     nome: Ernesto
 
   CodeAnalysis:
     name: Code Analysis

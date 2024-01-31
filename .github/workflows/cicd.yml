@@ -6,7 +6,7 @@ on:
       - main
       - 'feature/**'
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
     types:
       - opened
       - synchronize

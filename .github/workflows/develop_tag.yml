@@ -25,24 +25,20 @@ jobs:
           git config user.email "eduardo.gobetti@gmail.com"
           git config user.name "Eduardo Gobetti"
 
-      # - name: Get Latest Tag
-      #   id: latest_tag
-      #   run: |
-      #     git fetch --tags
-      #     latest_tag=$(git describe --tags --abbrev=0)
-      #     echo "tag ==> $latest_tag"
-      #     echo "::set-output name=TAG_VERSION::$latest_tag"
-
-      # - name: Echo TAG_VERSION
-      #   run: |
-      #     echo "Using Tag in Next Job: ${{ steps.latest_tag.outputs.TAG_VERSION }}"
-      - name: Generate Git Tag
+      - name: Get Latest Tag
+        id: latest_tag
+        run: |
+          git fetch --tags
+          latest_tag=$(git describe --tags --abbrev=0)
+          echo "Latest tag: $latest_tag"
+          echo "::set-output name=TAG_VERSION::$latest_tag"
+          
+      - name: Generate New Tag
         id: generate_tag
         run: |
           VERSION_PREFIX="v"
           VERSION_MAJOR_MINOR="1.0"
-          VERSION_PATCH=$(git tag --list "${VERSION_PREFIX}${VERSION_MAJOR_MINOR}.*" --sort=-version:refname | head -n 1 | grep -oE '[0-9]+$')
-          echo "Current VERSION_PATCH: $VERSION_PATCH"
+          VERSION_PATCH=$(echo "${{ steps.latest_tag.outputs.TAG_VERSION }}" | grep -oE '[0-9]+$')
           if [ -z "$VERSION_PATCH" ]; then
             VERSION_PATCH=0
           else
@@ -50,4 +46,4 @@ jobs:
           fi
           NEW_TAG="${VERSION_PREFIX}${VERSION_MAJOR_MINOR}.${VERSION_PATCH}"
           echo "Generated new tag: $NEW_TAG"
-          echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV
+          echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV          

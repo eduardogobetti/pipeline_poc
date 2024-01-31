@@ -23,10 +23,7 @@ jobs:
     name: Code Analysis
     runs-on: ubuntu-latest
     if: >
-      github.event_name == 'push' &&
-      github.event.ref_type == 'branch' &&
-      github.event.action == 'closed' &&
-      github.event.pull_request.merged == false
+      !github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v4
       - name: code analysis

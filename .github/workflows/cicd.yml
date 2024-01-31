@@ -23,9 +23,9 @@ jobs:
     name: Code Analysis
     runs-on: ubuntu-latest
     if: >
-      github.event_name == 'pull_request' &&
+      github.event_name == 'push' &&
       github.event.action == 'closed' &&
-      github.event.pull_request.merged == false    
+      github.event.pull_request.merged == false
     steps:
       - uses: actions/checkout@v4
       - name: code analysis

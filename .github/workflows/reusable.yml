@@ -1,0 +1,20 @@
+name: reusable
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+  pull_request:
+    branches: [ main, develop ]
+    types:
+      - opened
+      - synchronize
+      - closed
+  workflow_dispatch:
+
+jobs:
+  reusable:
+    uses: eduardogobetti/reusable_workflow/.github/workflows/say_hello.yml@main
+    with:
+      nome: Ernesto

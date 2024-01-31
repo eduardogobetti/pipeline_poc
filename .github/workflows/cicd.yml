@@ -14,11 +14,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  # reusable:
-  #   uses: eduardogobetti/reusable_workflow/.github/workflows/say_hello.yml@main
-  #   with:
-  #     nome: Ernesto
-
   CodeAnalysis:
     name: Code Analysis
     runs-on: ubuntu-latest
@@ -39,16 +34,7 @@ jobs:
       (github.event.action == 'opened' || github.event.action == 'synchronize')
     steps:
       - name: Deploy
-        run: echo I am deploying to Dev!     
-
-  # DeployEuDev:
-  #   name: Deploy to eu-central-1/test
-  #   runs-on: ubuntu-latest
-  #   needs: [Build]
-  #   if: startsWith(github.ref, 'refs/heads/feature/')
-  #   steps:
-  #     - name: Deploy
-  #       run: echo I am deploying to Dev!
+        run: echo I am deploying to Dev!        
 
   # DeployEuInt:
   #   name: Deploy to eu-central-1/Int 

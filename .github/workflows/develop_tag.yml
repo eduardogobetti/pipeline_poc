@@ -20,10 +20,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Get Latest Tag
+        id: latest_tag
+        run: echo ::set-output name=TAG_VERSION::$(git describe --tags --abbrev=0)
+
+      - name: Determine Next Version
+        id: next_version
+        run: |
+          TAG_VERSION=$(echo "${{ steps.latest_tag.outputs.TAG_VERSION }}" | awk -F. -v OFS=. '{$NF = $NF + 1;} 1')
+          echo ::set-output name=TAG_VERSION::${TAG_VERSION}
+
       - name: Create Tag
         run: |
-          echo "Enter the version for the tag:"
-          read version
-          echo "Creating tag v${version}"
-          git tag -a "v${version}" -m "Tagging version ${version}"
-          git push origin "v${version}"
+          echo "Creating tag v${{ steps.next_version.outputs.TAG_VERSION }}"
+          git tag -a "v${{ steps.next_version.outputs.TAG_VERSION }}" -m "Tagging version ${{ steps.next_version.outputs.TAG_VERSION }}"
+          git push origin "v${{ steps.next_version.outputs.TAG_VERSION }}"

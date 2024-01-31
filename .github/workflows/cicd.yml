@@ -37,7 +37,6 @@ jobs:
       - name: Deploy
         run: echo I am deploying to Dev!     
 
-
   # DeployEuDev:
   #   name: Deploy to eu-central-1/test
   #   runs-on: ubuntu-latest

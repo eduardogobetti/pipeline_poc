@@ -36,7 +36,9 @@ jobs:
           echo ::set-output name=TAG_VERSION::${TAG_VERSION}
 
       - name: Create Tag
-        run: |
-          echo "Creating tag v${{ steps.next_version.outputs.TAG_VERSION }}"
-          git tag -a "v${{ steps.next_version.outputs.TAG_VERSION }}" -m "Tagging version ${{ steps.next_version.outputs.TAG_VERSION }}"
-          git push origin "v${{ steps.next_version.outputs.TAG_VERSION }}"
+        run: echo "tag ==>> ${{ steps.next_version.outputs.TAG_VERSION }}"
+        # run: |
+        #   echo "Creating tag v${{ steps.next_version.outputs.TAG_VERSION }}"
+        #   git tag -a "v${{ steps.next_version.outputs.TAG_VERSION }}" -m "Tagging version ${{ steps.next_version.outputs.TAG_VERSION }}"
+        #   git push origin "v${{ steps.next_version.outputs.TAG_VERSION }}"
+        

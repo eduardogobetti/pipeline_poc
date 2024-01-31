@@ -35,10 +35,14 @@ jobs:
         run: echo "TAG_VERSION=${{ steps.bump_version.outputs.TAG }}"
         id: set_tag_version
 
+
   AutomaticReleases:
     runs-on: ubuntu-latest
     needs: TagEuDev
     steps:
+      - name: Wait for Tags
+        run: sleep 10s  # Aguarda um tempo para garantir que a tag tenha sido criada
+            
       - name: Use Tag Version
         run: |
           echo "Using Tag Version: ${{ needs.TagEuDev.outputs.TAG_VERSION }}"

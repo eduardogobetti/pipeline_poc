@@ -29,7 +29,7 @@ jobs:
         id: latest_tag
         run: |
           latest_tag=$(git describe --tags --abbrev=0)
-          echo "::set-output name=TAG_VERSION::$(latest_tag)"
+          echo "::set-output name=TAG_VERSION::$latest_tag"
 
       - name: Determine Next Version
         id: next_version

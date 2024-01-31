@@ -28,25 +28,11 @@ jobs:
       - name: Pull latest changes
         run: git pull
 
-      - name: Get Latest Tag
-        id: latest_tag
-        run: |
-          git fetch --tags
-          latest_tag=$(git describe --tags --abbrev=0)
-          echo "Latest tag: $latest_tag"
-          echo "LATEST_TAG=$latest_tag" >> $GITHUB_ENV
-
-      - name: Generate New Tag
-        id: generate_tag
-        run: |
-          VERSION_PREFIX="v"
-          VERSION_MAJOR_MINOR="1.0"
-          VERSION_PATCH=$(echo "${{ steps.latest_tag.outputs.TAG_VERSION }}" | grep -oE '[0-9]+$')
-          if [ -z "$VERSION_PATCH" ]; then
-            VERSION_PATCH=0
-          else
-            VERSION_PATCH=$((VERSION_PATCH + 1))
-          fi
-          NEW_TAG="${VERSION_PREFIX}${VERSION_MAJOR_MINOR}.${VERSION_PATCH}"
-          echo "Generated new tag: $NEW_TAG"
-          echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV          
+      - name: Create Release
+        uses: actions/create-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: ''
+          tag_name: ${{ github.event.before }}
+          name: Release ${{ github.event.before }}
+          body: Release notes for ${{ github.event.before }}

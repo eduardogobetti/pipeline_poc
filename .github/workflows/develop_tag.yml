@@ -30,6 +30,7 @@ jobs:
         run: |
           git fetch --tags
           latest_tag=$(git describe --tags --abbrev=0 --always)
+          echo "tag ==> $latest_tag"
           echo "::set-output name=TAG_VERSION::$latest_tag"
 
       - name: Determine Next Version

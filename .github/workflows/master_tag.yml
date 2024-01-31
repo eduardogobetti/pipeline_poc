@@ -1,21 +1,20 @@
-name: Develop Tag
+name: Master Tag
 
 on:
   pull_request:
-    branches: [ develop ]
+    branches: [ master ]
     types:
       - opened
       - synchronize
       - closed
   workflow_dispatch:
 jobs:
-  # criar a tag na develop se o a pr for concluida 
   TagEuDev: 
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' && 
             github.event.action == 'closed' && 
             github.event.pull_request.merged == true && 
-            github.event.pull_request.base.ref == 'develop' }}
+            github.event.pull_request.base.ref == 'master' }}
     permissions:
       contents: write            
     steps:

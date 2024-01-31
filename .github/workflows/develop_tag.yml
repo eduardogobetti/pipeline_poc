@@ -16,25 +16,15 @@ jobs:
             github.event.action == 'closed' && 
             github.event.pull_request.merged == true && 
             github.event.pull_request.base.ref == 'develop' }}
+    permissions:
+      contents: write            
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set Git Identity
-        run: |
-          git config user.email "eduardo.gobetti@gmail.com"
-          git config user.name "Eduardo Gobetti"
-
-      - name: Pull latest changes
-        run: git pull
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v3
         with:
-          tag_name: ${{ github.run_number }}
-          release_name: Release ${{ github.run_number }}
-          draft: false
-          prerelease: false
+          fetch-depth: '0'
+
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.64.0 # Don't use @master or @v1 unless you're happy to test the latest version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
+          WITH_V: false

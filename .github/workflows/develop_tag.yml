@@ -25,36 +25,13 @@ jobs:
           git config user.email "eduardo.gobetti@gmail.com"
           git config user.name "Eduardo Gobetti"
 
-      - name: Teste Edu
-        run: echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
-
-      - name: Use Git Tag in Another Step
-        run: echo "Using Git Tag: ${{ env.GIT_TAG }}"
-
-
       - name: Get Latest Tag
         id: latest_tag
         run: |
           git fetch --tags
-          latest_tag=$(git describe --tags --abbrev=0 --always)
+          latest_tag=$(git describe --tags --abbrev=0)
           echo "tag ==> $latest_tag"
           echo "::set-output name=TAG_VERSION::$latest_tag"
 
-      - name: Determine Next Version
-        id: next_version
-        run: |
-          # Obter a última versão
-          latest_version=$(echo "${{ steps.latest_tag.outputs.TAG_VERSION }}")
-
-          # Incrementar o número de minor
-          new_version=$(echo "$latest_version" | awk 'BEGIN{FS=OFS="."} {print $1,$2+1,$3}')
-
-          echo "::set-output name=TAG_VERSION::$new_version"
-
       - name: Create Tag
         run: echo "tag ==>> ${{ steps.next_version.outputs.TAG_VERSION }}"
-        # run: |
-        #   echo "Creating tag v${{ steps.next_version.outputs.TAG_VERSION }}"
-        #   git tag -a "v${{ steps.next_version.outputs.TAG_VERSION }}" -m "Tagging version ${{ steps.next_version.outputs.TAG_VERSION }}"
-        #   git push origin "v${{ steps.next_version.outputs.TAG_VERSION }}"
-        

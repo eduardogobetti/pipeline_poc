@@ -27,13 +27,13 @@ jobs:
 
       - name: Get Latest Tag
         id: latest_tag
-        run: echo ::set-output name=TAG_VERSION::$(git describe --tags --abbrev=0)
+        run: echo "::set-output name=TAG_VERSION::$(git describe --tags --abbrev=0)"
 
       - name: Determine Next Version
         id: next_version
         run: |
           TAG_VERSION=$(echo "${{ steps.latest_tag.outputs.TAG_VERSION }}" | awk -F. -v OFS=. '{$NF = $NF + 1;} 1')
-          echo ::set-output name=TAG_VERSION::${TAG_VERSION}
+          echo "::set-output name=TAG_VERSION::${TAG_VERSION}"
 
       - name: Create Tag
         run: echo "tag ==>> ${{ steps.next_version.outputs.TAG_VERSION }}"

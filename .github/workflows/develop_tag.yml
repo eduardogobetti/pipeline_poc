@@ -33,5 +33,6 @@ jobs:
           echo "tag ==> $latest_tag"
           echo "::set-output name=TAG_VERSION::$latest_tag"
 
-      - name: Create Tag
-        run: echo "tag ==>> ${{ steps.next_version.outputs.TAG_VERSION }}"
+      - name: Echo TAG_VERSION
+        run: |
+          echo "Using Tag in Next Job: ${{ steps.latest_tag.outputs.TAG_VERSION }}"

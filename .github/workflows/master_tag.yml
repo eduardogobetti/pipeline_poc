@@ -40,12 +40,14 @@ jobs:
     needs: TagEuDev
     steps:
       - name: Use Tag Version
-        run: echo "Using Tag Version: ${{ needs.TagEuDev.outputs.TAG_VERSION }}"
+        run: |
+          echo "Using Tag Version: ${{ needs.TagEuDev.outputs.TAG_VERSION }}"
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "${{ needs.TagEuDev.outputs.TAG_VERSION }}"
+
 
 # name: Main Tag
 

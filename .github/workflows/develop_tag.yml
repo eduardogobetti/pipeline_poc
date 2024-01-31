@@ -25,6 +25,9 @@ jobs:
           git config user.email "eduardo.gobetti@gmail.com"
           git config user.name "Eduardo Gobetti"
 
+      - name: Pull latest changes
+        run: git pull
+
       - name: Get Latest Tag
         id: latest_tag
         run: |
@@ -32,7 +35,7 @@ jobs:
           latest_tag=$(git describe --tags --abbrev=0)
           echo "Latest tag: $latest_tag"
           echo "::set-output name=TAG_VERSION::$latest_tag"
-          
+
       - name: Generate New Tag
         id: generate_tag
         run: |

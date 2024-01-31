@@ -24,6 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     if: >
       github.event_name == 'push' &&
+      github.event.ref_type == 'branch' &&
       github.event.action == 'closed' &&
       github.event.pull_request.merged == false
     steps:

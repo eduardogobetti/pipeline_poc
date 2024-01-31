@@ -22,7 +22,7 @@ jobs:
   CodeAnalysis:
     name: Code Analysis
     runs-on: ubuntu-latest
-    if: >
+    if: |
       !github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v4

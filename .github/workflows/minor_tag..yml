@@ -1,4 +1,4 @@
-name: Develop Tag
+name: Minor Tag
 
 on:
   pull_request:

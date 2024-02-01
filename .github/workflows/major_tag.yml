@@ -1,4 +1,4 @@
-name: Main Tag
+name: Major Tag
 
 on:
   pull_request:

@@ -36,3 +36,4 @@ nvestigation Points:
 feature PR para develop => patch
 release PR para develop => minor
 develop PR para main    => major
+

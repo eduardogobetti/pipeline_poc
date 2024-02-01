@@ -15,7 +15,8 @@ jobs:
     if: ${{ github.event_name == 'pull_request' && 
             github.event.action == 'closed' && 
             github.event.pull_request.merged == true && 
-            github.event.pull_request.base.ref == 'develop' }}
+            github.event.pull_request.base.ref == 'develop' &&
+            startsWith(github.event.pull_request.head.ref, 'release/') }}
     permissions:
       contents: write            
     steps:
@@ -27,6 +28,6 @@ jobs:
         uses: anothrNick/github-tag-action@1.64.0 # Don't use @master or @v1 unless you're happy to test the latest version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
-          # CUSTOM_TAG: apolonio
+          DEFAULT_BUMP: minor
           WITH_V: false
           PRERELEASE: false

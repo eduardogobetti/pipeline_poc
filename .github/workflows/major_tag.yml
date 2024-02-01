@@ -1,4 +1,4 @@
-name: Main Tag
+name: Major Tag
 
 on:
   pull_request:
@@ -29,7 +29,9 @@ jobs:
         uses: anothrNick/github-tag-action@1.64.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: major
           WITH_V: false
+          PRERELEASE: false
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:

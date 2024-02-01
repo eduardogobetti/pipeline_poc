@@ -25,3 +25,15 @@ nvestigation Points:
 ## Documentação
 [Doc tag-bump](https://github.com/marketplace/actions/github-tag-bump)
 [Doc Release](https://github.com/marketplace/actions/automatic-releases)
+
+
+
+* fazer nas features comitar com #patch ? ou talvez setar isso default sei lah
+* fazer uma action para release para criar os minors
+
+# DEFAULT_BUMP (optional) - Which type of bump to use when none explicitly provided (default: minor).
+
+feature PR para develop => patch
+release PR para develop => minor
+develop PR para main    => major
+

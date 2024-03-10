@@ -1,0 +1,13 @@
+name: Testes
+
+on:
+  push:
+  workflow_call:
+
+jobs:
+  teste:
+    name: Executar Primeira Action
+    runs-on: ubuntu-latest
+    steps:
+      - name: Execute Testes
+        run: echo "Executando  Testes"

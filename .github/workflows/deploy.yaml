@@ -1,4 +1,4 @@
-name: Segunda Action
+name: Deploy
 
 on:
   workflow_run:
@@ -7,10 +7,12 @@ on:
       - completed
 
 jobs:
+  tests:
+    uses: ./.github/workflows/testes.yml
   segundo_job:
     name: Executar Segunda Action
     runs-on: ubuntu-latest
-    needs: primeiro_job
+    needs: teste
     steps:
       - name: Segunda Etapa
         run: echo "Executando Segunda Action"

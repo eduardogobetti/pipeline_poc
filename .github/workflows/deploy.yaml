@@ -5,7 +5,7 @@ on:
 
 jobs:
   tests:
-    uses: ./.github/workflows/testes.yml
+    uses: ./.github/workflows/testes.yaml
   segundo_job:
     name: Executar Segunda Action
     runs-on: ubuntu-latest

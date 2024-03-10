@@ -2,14 +2,16 @@ name: Deploy
 
 on:
   push:
-
+  workflow_run:
+    workflows: ["teste"]
+    types:
+      - completed    
 jobs:
-  tests:
-    uses: ./.github/workflows/testes.yaml
   segundo_job:
     name: Executar Segunda Action
     runs-on: ubuntu-latest
     needs: teste
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Segunda Etapa
         run: echo "Executando Segunda Action"

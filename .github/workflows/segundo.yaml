@@ -1,0 +1,17 @@
+name: Pull Request Workflow
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  PullRequestWorkflow:
+    name: Pull Request Job
+    runs-on: ubuntu-latest
+    needs: CommitWorkflow
+    steps:
+      - name: SonarQube Scan
+        run: echo "Executar SonarQube Scan"
+
+      - name: TrustStore Validation
+        run: echo "Executar TrustStore Validation"

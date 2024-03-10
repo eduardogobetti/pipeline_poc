@@ -1,0 +1,17 @@
+name: Commit Workflow
+
+on:
+  push:
+    branches:
+      - develop
+      - 'feature/**'
+      - 'bugfix/**'
+      - 'hotfix/**'
+
+jobs:
+  CommitWorkflow:
+    name: Commit trigger
+    runs-on: ubuntu-latest
+    steps:
+      - name: code analysis
+        run: echo code analysis

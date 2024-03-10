@@ -1,9 +1,9 @@
-name: Testes
+name: Teste
 
 on: [push, workflow_call]
 
 jobs:
-  teste:
+  Teste:
     name: Executar Primeira Action
     runs-on: ubuntu-latest
     steps:

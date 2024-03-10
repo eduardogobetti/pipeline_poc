@@ -1,10 +1,7 @@
 name: Deploy
 
 on:
-  workflow_run:
-    workflows: ["Primeira Action"]
-    types:
-      - completed
+  push:
 
 jobs:
   tests:

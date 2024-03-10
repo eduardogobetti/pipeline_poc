@@ -1,17 +1,12 @@
-name: Commit Workflow
+name: Primeira Action
 
 on:
   push:
-    branches:
-      - develop
-      - 'feature/**'
-      - 'bugfix/**'
-      - 'hotfix/**'
 
 jobs:
-  CommitWorkflow:
-    name: Commit trigger
+  primeiro_job:
+    name: Executar Primeira Action
     runs-on: ubuntu-latest
     steps:
-      - name: code analysis
-        run: echo code analysis
+      - name: Primeira Etapa
+        run: echo "Executando Primeira Action"

@@ -2,6 +2,8 @@ name: Primeira Action
 
 on:
   push:
+    branches:
+      - main
 
 jobs:
   primeiro_job:
@@ -10,3 +12,10 @@ jobs:
     steps:
       - name: Primeira Etapa
         run: echo "Executando Primeira Action"
+
+  job_sem_dependencia:
+    name: Job Sem Dependência
+    runs-on: ubuntu-latest
+    steps:
+      - name: Etapa Sem Dependência
+        run: echo "Executando Job Sem Dependência"
